@@ -7,6 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    DragAndDrop: typeof import('./src/components/games/DragAndDrop.vue')['default']
+    FillInTheBlank: typeof import('./src/components/games/FillInTheBlank.vue')['default']
+    GamesTable: typeof import('./src/components/GamesTable.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
   }
 }
