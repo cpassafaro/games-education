@@ -11,5 +11,6 @@ declare module 'vue' {
     FillInTheBlank: typeof import('./src/components/games/FillInTheBlank.vue')['default']
     GamesTable: typeof import('./src/components/GamesTable.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Sorting: typeof import('./src/components/games/Sorting.vue')['default']
   }
 }
