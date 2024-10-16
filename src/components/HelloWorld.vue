@@ -1,5 +1,4 @@
 <template>
-  <v-header> </v-header>
   <v-container class="fill-height">
     <v-row>
       <v-app-bar>
