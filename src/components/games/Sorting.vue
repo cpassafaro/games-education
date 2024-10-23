@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     getWords() {
+      //api not working anymote
       axios
         .get("https://random-word-api.herokuapp.com/word?number=10")
         .then((response) => (this.words = response.data));
