@@ -43,10 +43,16 @@ export default {
   },
   methods: {
     getWords() {
-      //api not working anymote
-      axios
-        .get("https://random-word-api.herokuapp.com/word?number=10")
-        .then((response) => (this.words = response.data));
+      for (let i = 0; i < 10; i++) {
+        // https://api-ninjas.com/api/randomword
+        axios.defaults.headers.common = {
+          "X-API-Key": "PanCkRPVcOtni+YlYusDwg==dmIM4Ykz0odODuwA",
+        };
+
+        axios
+          .get("https://api.api-ninjas.com/v1/randomword")
+          .then((response) => this.words.push(response.data));
+      }
     },
     onDragChange() {
       console.log("on drag change");
