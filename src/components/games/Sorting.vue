@@ -1,22 +1,18 @@
 <template>
-  <v-container>
-    <h2>Alphabetical Sortable</h2>
-    <draggable v-model="words" group="people" item-key="id">
-      <template #item="{ element }">
-        <v-row>
-          {{ element }}
-        </v-row>
-      </template>
-    </draggable>
-    <!-- <draggable v-model="words" v-bind="dragOptions" @change="onDragChange">
-      <v-container
-        class="justify-center align-center"
-        v-for="index in words.length"
-        :key="'sortable_' + index"
-        >{{ words[index] }}</v-container
-      >
-    </draggable> -->
-  </v-container>
+  <v-row>
+    <v-col cols="12" class="d-flex justify-center">
+      <h2>Alphabetical Sortable</h2>
+    </v-col>
+    <v-col cols="12" class="d-flex justify-center">
+      <draggable v-model="words" group="people" item-key="id">
+        <template #item="{ element }">
+          <v-row>
+            {{ element.word }}
+          </v-row>
+        </template>
+      </draggable>
+    </v-col>
+  </v-row>
 </template>
 <script>
 import axios from "axios";
@@ -38,18 +34,23 @@ export default {
       };
     },
   },
+  watch: {
+    words(newValue) {
+      console.log("words ", newValue);
+    },
+  },
   mounted() {
     this.getWords();
   },
   methods: {
-    getWords() {
+    async getWords() {
       for (let i = 0; i < 10; i++) {
         // https://api-ninjas.com/api/randomword
         axios.defaults.headers.common = {
           "X-API-Key": "PanCkRPVcOtni+YlYusDwg==dmIM4Ykz0odODuwA",
         };
 
-        axios
+        await axios
           .get("https://api.api-ninjas.com/v1/randomword")
           .then((response) => this.words.push(response.data));
       }
@@ -60,3 +61,11 @@ export default {
   },
 };
 </script>
+<style>
+.row-header {
+  width: 100%;
+}
+.row-draggable {
+  width: 100%;
+}
+</style>

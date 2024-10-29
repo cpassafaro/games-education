@@ -16,7 +16,7 @@
         </v-row>
       </v-app-bar>
     </v-row>
-    <v-row>
+    <v-row class="row-selected-game">
       <!-- <DragAndDrop></DragAndDrop> -->
       <Sorting></Sorting>
     </v-row>
@@ -38,3 +38,8 @@ export default {
   methods: {},
 };
 </script>
+<style>
+.row-selected-game {
+  width: 100%;
+}
+</style>
