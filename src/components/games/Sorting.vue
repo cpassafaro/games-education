@@ -14,8 +14,8 @@
     <v-col v-else cols="12" class="d-flex justify-center">
       <draggable v-model="words" group="people" item-key="id">
         <template #item="{ element }">
-          <v-row>
-            {{ element.word }}
+          <v-row class="outlined  pa-4">
+            {{ element.word[0] }}
           </v-row>
         </template>
       </draggable>
@@ -78,4 +78,5 @@ export default {
 .row-draggable {
   width: 100%;
 }
+.container-row-word {}
 </style>
