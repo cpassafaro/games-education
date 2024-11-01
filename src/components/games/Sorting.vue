@@ -3,7 +3,15 @@
     <v-col cols="12" class="d-flex justify-center">
       <h2>Alphabetical Sortable</h2>
     </v-col>
-    <v-col cols="12" class="d-flex justify-center">
+    <v-col v-if="loading" class="d-flex justify-center">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        indeterminate
+        color="purple"
+      ></v-progress-circular>
+    </v-col>
+    <v-col v-else cols="12" class="d-flex justify-center">
       <draggable v-model="words" group="people" item-key="id">
         <template #item="{ element }">
           <v-row>
@@ -25,6 +33,7 @@ export default {
     return {
       sortingLength: 10,
       words: [],
+      loading: true,
     };
   },
   computed: {
@@ -54,6 +63,7 @@ export default {
           .get("https://api.api-ninjas.com/v1/randomword")
           .then((response) => this.words.push(response.data));
       }
+      this.loading = false;
     },
     onDragChange() {
       console.log("on drag change");
