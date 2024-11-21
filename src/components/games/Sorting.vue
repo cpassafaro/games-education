@@ -36,6 +36,7 @@
   </v-row>
 </template>
 <script>
+import _ from "lodash";
 import axios from "axios";
 import draggable from "vuedraggable";
 
@@ -83,22 +84,11 @@ export default {
       console.log("on drag change");
     },
     onSubmit() {
-      const sortedWords = this.words.sort((a, b) =>
+      const cloneWords = _.cloneDeep(this.words);
+      const sortedWords = cloneWords.sort((a, b) =>
         a.word[0].localeCompare(b.word[0])
       );
-      // const sortedWords = this.words.sort(function (a, b) {
-      //   // console.log("a", a.word);
-      //   // console.log("b", b.word);
-      //   let x = a.word;
-      //   let y = b.word.localeCom
-      //   if (x > y) {
-      //     return 1;
-      //   }
-      //   if (x < y) {
-      //     return -1;
-      //   }
-      //   return 0;
-      // });
+      // still need to compare and throw feedback
       console.log(sortedWords);
     },
   },
