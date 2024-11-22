@@ -6,6 +6,15 @@
     <v-col cols="12" class="d-flex justify-center">
       <p>Drag the words into Alphabetical Order. Then submit below.</p>
     </v-col>
+    <v-col v-if="showFeedback">
+      <v-container
+        class="d-flex justify-center align-center container-feedback"
+      >
+        <p v-if="correctFeedback">That is correct</p>
+        <p v-else>That is incorrect</p>
+        <v-btn @click="onCloseFeedback" icon="mdi-close"> </v-btn>
+      </v-container>
+    </v-col>
     <v-col v-if="loading" class="d-flex justify-center">
       <v-progress-circular
         :size="70"
@@ -18,11 +27,7 @@
       <draggable v-model="words" group="people" item-key="id">
         <template #item="{ element }">
           <v-card class="outlined pa-4 mb-4 row-word">
-            <!-- <v-col class="pa-0" cols="3">
-            </v-col> -->
             <v-icon>mdi-drag-vertical</v-icon>
-            <!-- <v-col class="pa-0">
-            </v-col> -->
             <span>
               {{ element.word[0] }}
             </span>
@@ -48,6 +53,8 @@ export default {
       sortingLength: 10,
       words: [],
       loading: true,
+      showFeedback: false,
+      correctFeedback: false,
     };
   },
   computed: {
@@ -84,12 +91,25 @@ export default {
       console.log("on drag change");
     },
     onSubmit() {
-      const cloneWords = _.cloneDeep(this.words);
-      const sortedWords = cloneWords.sort((a, b) =>
+      const wordOrder = _.cloneDeep(this.words);
+      let answerOrder = _.cloneDeep(this.words);
+      answerOrder = answerOrder.sort((a, b) =>
         a.word[0].localeCompare(b.word[0])
       );
-      // still need to compare and throw feedback
-      console.log(sortedWords);
+      // still need to compare and throw Feedback
+      console.log("answer order", answerOrder);
+      console.log("word order", wordOrder);
+      if (_.isEqual(wordOrder, answerOrder)) {
+        console.log("that is correct");
+        this.correctFeedback = true;
+      } else {
+        console.log("that is incorrect");
+        this.correctFeedback = false;
+      }
+      this.showFeedback = true;
+    },
+    onCloseFeedback() {
+      this.showFeedback = false;
     },
   },
 };
@@ -101,10 +121,12 @@ export default {
 .row-draggable {
   width: 100%;
 }
-.container-row-word {
-}
 .row-word {
   width: 15vw;
+}
+.container-feedback {
+  width: 15vw !important;
+  border: 2px solid white;
 }
 .row-word:hover {
   cursor: grab;
